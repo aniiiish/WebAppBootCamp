@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Customer Data from Azure SQL Database</h1>
+    <div id="dataContainer"></div>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: 'http://localhost:3001/data',
+                method: 'GET',
+                success: function (data) {
+                    var tableHTML = '<table border="1"><tr><th>CustomerID</th><th>FirstName</th><th>MiddleName</th><th>LastName</th></tr>';
+                    for (var i = 0; i < data.length; i++) {
+                        tableHTML += '<tr><td>' + data[i].CustomerID + '</td><td>' + data[i].FirstName + '</td><td>' + data[i].MiddleName + '</td><td>' + data[i].LastName + '</td></tr>';
+                    }
+                    tableHTML += '</table>';
+                    $('#dataContainer').html(tableHTML);
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
